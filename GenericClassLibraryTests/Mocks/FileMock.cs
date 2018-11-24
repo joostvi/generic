@@ -42,9 +42,25 @@ namespace GenericClassLibraryTests.Mocks
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// In real world GetExtension returns the extension inclusive dot (Path.GetExtension(aFile))
+        /// </summary>
+        /// <param name="aFile">Input filename</param>
+        /// <returns></returns>
         public string GetExtension(string aFile)
         {
-            return aFile.Split('.').Last(b => b != null && b != "");
+            string[] splits = aFile.Split('.');
+            if(splits.Length <= 1)
+            {
+                //When no extension "" is returned
+                return "";
+            }
+            string last = splits.Last(b => b != null && b != "");
+            if(last.Length > 0 && !last[0].Equals('.'))
+            {
+                last = "." + last;
+            }
+            return last;
         }
     }
 }
