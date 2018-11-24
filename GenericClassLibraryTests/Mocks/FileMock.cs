@@ -2,16 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GenericClassLibraryTests.Mocks
 {
     public class FileMock : IFile
     {
-        private readonly IList<string> files = new List<string>();
-
         private readonly DirectoryMock _Directory;
 
-        public IList<string> Files { get => files;  }
+        public IList<string> Files { get; } = new List<string>();
 
         public FileMock(DirectoryMock directory)
         {
@@ -45,7 +44,7 @@ namespace GenericClassLibraryTests.Mocks
 
         public string GetExtension(string aFile)
         {
-            throw new NotImplementedException();
+            return aFile.Split('.').Last(b => b != null && b != "");
         }
     }
 }
