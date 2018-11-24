@@ -1,0 +1,4 @@
+language: csharp
+dist: trusty  
+script:  
+ - msbuild /t:restore /p:Configuration=Release Generic.sln
