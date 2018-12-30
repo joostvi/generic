@@ -1,4 +1,8 @@
 language: csharp
+solution: Generic.sln
 dist: trusty  
+install:
+ - nuget restore Generic.sln
 script:  
- - msbuild /t:restore /p:Configuration=Release Generic.sln
+ - msbuild /t:build /p:Configuration=Release
+

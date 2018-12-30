@@ -19,7 +19,7 @@ namespace GenericClassLibraryTests
             //act
             string logText = "Some error info to log";
             Logger.Error(logText);
-
+            
             //verify
             logger.Verify(a => a.Error(logText));
         }
