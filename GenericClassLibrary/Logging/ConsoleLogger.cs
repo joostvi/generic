@@ -4,25 +4,32 @@ namespace GenericClassLibrary.Logging
 {
     public class ConsoleLogger : ILogger
     {
+        private static void WriteLine(string text, ConsoleColor color)
+        {
+            var oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ForegroundColor = oldColor;
+        }
 
         public void Debug(string value)
         {
-            Console.WriteLine("DEBUG: " + value);
+            WriteLine(value, ConsoleColor.White);
         }
 
         public void Error(string value)
         {
-            Console.WriteLine("ERROR: " + value);
+            WriteLine(value, ConsoleColor.Red);
         }
 
         public void Info(string value)
         {
-            Console.WriteLine("INFO: " + value);
+            WriteLine(value, ConsoleColor.White);
         }
 
         public void Warning(string value)
         {
-            Console.WriteLine("WARNING: " + value);
+            WriteLine(value, ConsoleColor.Yellow);
         }
     }
 }
