@@ -1,6 +1,6 @@
 language: csharp
 dist: trusty  
 env:
- - PACKAGE_VERSION="1.0.*"
+ - BuildVersion="1.0.*"
 script:  
- - msbuild /t:restore /p:Configuration=Release Generic.sln /p:Version=$PACKAGE_VERSION
+ - msbuild /t:restore /p:Configuration=Release Generic.sln /p:Version=$BuildVersion
