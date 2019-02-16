@@ -1,6 +1,4 @@
 language: csharp
 dist: trusty  
-env:
- - BuildVersion="1.0.*"
 script:  
- - msbuild /t:restore /p:Configuration=Release Generic.sln /p:Version=$BuildVersion
+ - msbuild /t:restore /p:Configuration=Release Generic.sln /p:Version=1.0.$TRAVIS_BUILD_NUMBER
