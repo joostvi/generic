@@ -1,4 +1,4 @@
 language: csharp
 dist: trusty  
 script:  
- - msbuild /t:restore /p:Configuration=Release Generic.sln /p:Version=1.0.$TRAVIS_BUILD_NUMBER
+ - msbuild /t:build /p:Configuration=Release Generic.sln /p:Version=1.0.$TRAVIS_BUILD_NUMBER
