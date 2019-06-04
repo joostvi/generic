@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
 
-namespace LiveDirectorySyncEngineConsoleApp.Usercontrol
+namespace GenericWPFLibrary.Usercontrol
 {
     /// <summary>
     /// Interaction logic for PathSelector.xaml
