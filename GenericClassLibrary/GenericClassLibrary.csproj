@@ -6,4 +6,8 @@
     <Version>1.0.0</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>
