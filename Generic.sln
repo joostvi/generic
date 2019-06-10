@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericClassLibrary", "GenericClassLibrary\GenericClassLibrary.csproj", "{2DA4919F-BB9B-4B5A-9478-E4C403ABDEF6}"
 EndProject
@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{09E7860E-36B2-47EC-87CF-65DB780BA97D}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
+		travis-ci.msbuild = travis-ci.msbuild
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericWinformsLibrary", "GenericWinformsLibrary\GenericWinformsLibrary.csproj", "{1AA3AAE4-71BE-408F-B4DA-DE06E1A2D539}"
