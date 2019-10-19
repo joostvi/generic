@@ -26,10 +26,6 @@ namespace GenericClassLibrary.Yaml
         public static string Serialize<T>(T obj, bool emitDefaults = false) where T : class
         {
             SerializerBuilder serializerBuilder = new SerializerBuilder().WithNamingConvention(new CamelCaseNamingConvention());
-            if (emitDefaults)
-            {
-                serializerBuilder.EmitDefaults();
-            }
             ISerializer serializer = serializerBuilder.Build();
             return serializer.Serialize(obj);
         }
