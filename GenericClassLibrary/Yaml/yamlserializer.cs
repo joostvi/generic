@@ -15,7 +15,7 @@ namespace GenericClassLibrary.Yaml
             using (StringReader input = new StringReader(fileName))
             {
                 IDeserializer deserializer = new DeserializerBuilder()
-                    .WithNamingConvention(new CamelCaseNamingConvention())
+                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
                     .Build();
 
                 T obj = deserializer.Deserialize<T>(input);
@@ -25,7 +25,7 @@ namespace GenericClassLibrary.Yaml
 
         public static string Serialize<T>(T obj, bool emitDefaults = false) where T : class
         {
-            SerializerBuilder serializerBuilder = new SerializerBuilder().WithNamingConvention(new CamelCaseNamingConvention());
+            SerializerBuilder serializerBuilder = new SerializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance);
             ISerializer serializer = serializerBuilder.Build();
             return serializer.Serialize(obj);
         }
