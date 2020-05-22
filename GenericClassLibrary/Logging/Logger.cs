@@ -8,13 +8,21 @@ namespace GenericClassLibrary.Logging
     public static partial class Logger
     {
         //TODO decide about locking private static object _lock = new object();
-        private static List<ILogger> _loggers = new List<ILogger>();
+        private static readonly List<ILogger> _loggers = new List<ILogger>();
 
         public static EnumLogLevel Level { get; set; }
 
         public static void RemoveAll()
         {
             _loggers.Clear();
+        }
+
+        public static void Remove(ILogger logger)
+        {
+            if(_loggers.Contains(logger))
+            {
+                _loggers.Remove(logger);
+            }
         }
 
         public static void AddLogger(ILogger logger)

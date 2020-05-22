@@ -50,12 +50,27 @@
     <Compile Include="Usercontrol\PathSelector.xaml.cs">
       <DependentUpon>PathSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Usercontrol\WPFScreenLogger\ScreenLogEventArgs.cs" />
+    <Compile Include="Usercontrol\WPFScreenLogger\ScreenLogger.cs" />
+    <Compile Include="Usercontrol\WPFScreenLogger\WpfScreenLogger.xaml.cs">
+      <DependentUpon>WpfScreenLogger.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Usercontrol\PathSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Usercontrol\WPFScreenLogger\WpfScreenLogger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GenericClassLibrary\GenericClassLibrary.csproj">
+      <Project>{3EFC831C-7CF4-49FB-9596-FBEE0E44CE12}</Project>
+      <Name>GenericClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

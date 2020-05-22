@@ -23,8 +23,10 @@ DependencyProperty.Register("Path", typeof(string), typeof(PathSelector), new UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.SelectedPath = txtPath.Text;
+            var dialog = new FolderBrowserDialog
+            {
+                SelectedPath = txtPath.Text
+            };
             var result = dialog.ShowDialog();
             if (result == DialogResult.OK)
             {
