@@ -1,45 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GenericClassLibrary.Logging
 {
-    public static class TimeLogger
+    public class TimeLogger
     {
-        private static readonly object _lockObject = new object();
-        private static readonly Dictionary<string, Stopwatch> Stopwatches = new Dictionary<string, Stopwatch>();
+        public string Action { get; }
+        public EnumLogLevel LogLevel { get; }
 
-        public static void Start(EnumLogLevel logLevel, string action)
+        private Stopwatch _stopwatch;
+
+        public TimeLogger(EnumLogLevel logLevel, string action)
         {
-            if (Logger.Level >= logLevel)
+            Action = action;
+            LogLevel = logLevel;
+        }
+        public void Start()
+        {
+            if (Logger.Level >= LogLevel)
             {
-                lock (_lockObject)
+                if (_stopwatch != null)
                 {
-                    if (Stopwatches.ContainsKey(action))
-                    {
-                        throw new Exception($"There is already a timer started for action: {action}");
-                    }
-                    Stopwatch sw = new Stopwatch();
-                    Stopwatches.Add(action, sw);
-                    sw.Start();
+                    throw new Exception("Timer already started!");
                 }
-
+                _stopwatch = new Stopwatch();
+                _stopwatch.Start();
             }
         }
 
-        public static void Stop(string action)
+        public void Stop()
         {
-            lock (_lockObject)
+            if (_stopwatch == null)
             {
-                if (!Stopwatches.TryGetValue(action, out Stopwatch sw))
-                {
-                    return;
-                }
-
-                sw.Stop();
-                Logger.Info($"{action} took {sw.ElapsedMilliseconds} ms.");
-                Stopwatches.Remove(action);
+                return;
             }
+
+            _stopwatch.Stop();
+            Logger.Info($"{Action} took {_stopwatch.ElapsedMilliseconds} ms.");
         }
     }
 }
