@@ -7,5 +7,7 @@ namespace GenericClassLibrary.Logging
         void Info(string value);
         void Debug(string value);
         void Warning(string value);
+
+        void Critical(string value);
     }
 }

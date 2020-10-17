@@ -19,7 +19,7 @@ namespace GenericClassLibrary.Logging
 
         public static void Remove(ILogger logger)
         {
-            if(_loggers.Contains(logger))
+            if (_loggers.Contains(logger))
             {
                 _loggers.Remove(logger);
             }
@@ -30,9 +30,19 @@ namespace GenericClassLibrary.Logging
             _loggers.Add(logger);
         }
 
+        public static bool IsEnabled(EnumLogLevel level)
+        {
+            return level <= Level;
+        }
+
+        public static void Log(EnumLogLevel level, string value)
+        {
+            DoLog(level, value);
+        }
+
         private static void DoLog(EnumLogLevel level, string value)
         {
-            if (level > Level)
+            if (!IsEnabled(level))
             {
                 return;
             }
@@ -52,6 +62,9 @@ namespace GenericClassLibrary.Logging
                         break;
                     case EnumLogLevel.Warning:
                         logger.Warning(value);
+                        break;
+                    case EnumLogLevel.Critical:
+                        logger.Critical(value);
                         break;
                 }
             }

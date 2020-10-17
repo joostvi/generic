@@ -53,5 +53,9 @@ namespace GenericClassLibrary.Logging
         {
             DoLog("WARNING " + value);
         }
+        public void Critical(string value)
+        {
+            DoLog("CRITICAL " + value);
+        }
     }
 }

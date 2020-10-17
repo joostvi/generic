@@ -37,5 +37,10 @@ namespace GenericWPFLibrary.Usercontrol.WpfScreenLogger
         {
             DoLog(EnumLogLevel.Warning, value);
         }
+
+        public void Critical(string value)
+        {
+            DoLog(EnumLogLevel.Critical, value);
+        }
     }
 }

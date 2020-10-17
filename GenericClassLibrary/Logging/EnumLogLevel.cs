@@ -3,6 +3,7 @@
     public enum EnumLogLevel
     {
         None,
+        Critical,
         Error,
         Warning,
         Info,

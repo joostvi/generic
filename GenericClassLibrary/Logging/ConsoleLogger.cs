@@ -31,5 +31,10 @@ namespace GenericClassLibrary.Logging
         {
             WriteLine(value, ConsoleColor.Yellow);
         }
+
+        public void Critical(string value)
+        {
+            WriteLine(value, ConsoleColor.Red);
+        }
     }
 }
