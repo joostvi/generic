@@ -3,6 +3,7 @@ namespace GenericClassLibrary.Logging
 {
     public interface ILogger
     {
+        void Trace(string value);
         void Error(string value);
         void Info(string value);
         void Debug(string value);

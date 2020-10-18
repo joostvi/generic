@@ -7,6 +7,7 @@
         Error,
         Warning,
         Info,
-        Debug
+        Debug,
+        Trace
     }
 }

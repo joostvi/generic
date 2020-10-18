@@ -12,6 +12,11 @@ namespace GenericClassLibrary.Logging
             Console.ForegroundColor = oldColor;
         }
 
+        public void Trace(string value)
+        {
+            WriteLine(value, ConsoleColor.White);
+        }
+
         public void Debug(string value)
         {
             WriteLine(value, ConsoleColor.White);
@@ -35,6 +40,15 @@ namespace GenericClassLibrary.Logging
         public void Critical(string value)
         {
             WriteLine(value, ConsoleColor.Red);
+        }
+    }
+
+    public static class ConsoleLoggerExtensions
+    {
+        public static Logger AddConsoleLogger(this Logger logger)
+        {
+            Logger.AddLogger(new ConsoleLogger());
+            return logger;
         }
     }
 }

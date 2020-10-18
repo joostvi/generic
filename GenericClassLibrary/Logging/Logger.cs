@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GenericClassLibrary.Logging
 {
-    public static partial class Logger
+    public partial class Logger
     {
         //TODO decide about locking private static object _lock = new object();
         private static readonly List<ILogger> _loggers = new List<ILogger>();
@@ -51,6 +51,9 @@ namespace GenericClassLibrary.Logging
             {
                 switch (level)
                 {
+                    case EnumLogLevel.Trace:
+                        logger.Trace(value);
+                        break;
                     case EnumLogLevel.Error:
                         logger.Error(value);
                         break;

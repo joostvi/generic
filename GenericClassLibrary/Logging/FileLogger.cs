@@ -57,5 +57,10 @@ namespace GenericClassLibrary.Logging
         {
             DoLog("CRITICAL " + value);
         }
+
+        public void Trace(string value)
+        {
+            DoLog("TRACE " + value);
+        }
     }
 }

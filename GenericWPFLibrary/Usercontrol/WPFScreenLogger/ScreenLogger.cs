@@ -18,6 +18,11 @@ namespace GenericWPFLibrary.Usercontrol.WpfScreenLogger
             LogEventHandler?.Invoke(this, new ScreenLogEventArgs(level, value));
         }
 
+        public void Trace(string value)
+        {
+            DoLog(EnumLogLevel.Trace, value);
+        }
+
         public void Debug(string value)
         {
             DoLog(EnumLogLevel.Debug, value);
