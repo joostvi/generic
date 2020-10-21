@@ -2,6 +2,8 @@
 using Xunit;
 using Moq;
 using System;
+using System.Collections.Generic;
+using GenericClassLibrary.Logging.net.core;
 
 namespace GenericClassLibraryTests
 {
@@ -130,6 +132,56 @@ namespace GenericClassLibraryTests
             Array valuesAsArray = Enum.GetValues(typeof(EnumLogLevel));
 
             Assert.Equal(valuesAsArray.Length, logLevels.Count);
+        }
+
+        [Fact]
+        public void LogMessageHelper_CreateMessageWithDictValues_NullDictionary_ExpectMessageReturned()
+        {
+            IDictionary<string, string> dict = null;
+            var message = dict.CreateMessageWithDictValues("This is the message");
+
+            Assert.Equal("This is the message", message.Message);
+            Assert.Empty(message.Args);
+        }
+
+        [Fact]
+        public void LogMessageHelper_CreateMessageWithDictValues_EmptyDictionary_ExpectMessageReturned()
+        {
+            IDictionary<string, string> dict = new Dictionary<string, string>();
+            var message = dict.CreateMessageWithDictValues("This is the message");
+
+            Assert.Equal("This is the message", message.Message);
+            Assert.Empty(message.Args);
+        }
+
+        [Fact]
+        public void LogMessageHelper_CreateMessageWithDictValues_NoMessage_ExpectMessageContainsValueList()
+        {
+            IDictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "key1", "value1" }
+            };
+            var message = dict.CreateMessageWithDictValues(null);
+
+            Assert.Equal("key1: {key1}", message.Message);
+            Assert.Single(message.Args);
+            Assert.Equal("value1", message.Args[0]);
+        }
+
+        [Fact]
+        public void LogMessageHelper_CreateMessageWithDictValues_MultipleProps_ExpectMultipleBack()
+        {
+            IDictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "key1", "value1" },
+                { "key2", "value2" },
+            };
+            var message = dict.CreateMessageWithDictValues(null);
+
+            Assert.Equal("key1: {key1}, key2: {key2}", message.Message);
+            Assert.Equal(2, message.Args.Length);
+            Assert.Equal("value1", message.Args[0]);
+            Assert.Equal("value2", message.Args[1]);
         }
     }
 }

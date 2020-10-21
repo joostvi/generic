@@ -27,6 +27,11 @@ namespace GenericClassLibrary.Logging
 
         public static void AddLogger(ILogger logger)
         {
+            if(_loggers.Contains(logger))
+            {
+                //nothing to do already added;
+                return;
+            }
             _loggers.Add(logger);
         }
 
@@ -119,6 +124,16 @@ namespace GenericClassLibrary.Logging
         public static void Debug(string value)
         {
             DoLog(EnumLogLevel.Debug, value);
+        }
+
+        public static void Critical(string value)
+        {
+            DoLog(EnumLogLevel.Critical, value);
+        }
+
+        public static void Trace(string value)
+        {
+            DoLog(EnumLogLevel.Trace, value);
         }
     }
 }

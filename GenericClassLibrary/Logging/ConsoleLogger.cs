@@ -42,13 +42,4 @@ namespace GenericClassLibrary.Logging
             WriteLine(value, ConsoleColor.Red);
         }
     }
-
-    public static class ConsoleLoggerExtensions
-    {
-        public static Logger AddConsoleLogger(this Logger logger)
-        {
-            Logger.AddLogger(new ConsoleLogger());
-            return logger;
-        }
-    }
 }
