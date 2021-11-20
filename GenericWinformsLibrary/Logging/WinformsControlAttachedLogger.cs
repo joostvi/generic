@@ -36,9 +36,19 @@ namespace GenericWinformsLibrary.Logging
             AddLine(EnumLogLevel.Info, value);
         }
 
+        public void Trace(string value)
+        {
+            AddLine(EnumLogLevel.Trace, value);
+        }
+
         public void Warning(string value)
         {
             AddLine(EnumLogLevel.Warning, value);
+        }
+
+        public void Critical(string value)
+        {
+            AddLine(EnumLogLevel.Critical, value);
         }
     }
 }
