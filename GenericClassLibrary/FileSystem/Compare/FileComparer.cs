@@ -22,8 +22,8 @@ namespace GenericClassLibrary.FileSystem.Compare
             {    // we have to look into the file details
                  // Cannot use creation time as this will be changed during backup.
                  // TimeSpan diffResult = aFile.LastWriteTimeUtc.Subtract(aFile2.LastWriteTimeUtc);
-                //var hashCode1 = aFile.GetHashCode();
-                //var hashCode2 = aFile2.GetHashCode();
+                 //var hashCode1 = aFile.GetHashCode();
+                 //var hashCode2 = aFile2.GetHashCode();
                 Logger.Debug($"FileComparer: length 1: {file1.Length}, length 2: {file2.Length}, name 1: {file1.Name}, name 2: {file2.Name}");
                 if (file1.Length == file2.Length && file1.Name == file2.Name)
                 {
@@ -37,33 +37,45 @@ namespace GenericClassLibrary.FileSystem.Compare
         private static bool HasSameContent(FileInfo file1, FileInfo file2)
         {
             // Open the two files.
-            FileStream fs1 = new FileStream(file1.FullName, FileMode.Open);
-            FileStream fs2 = new FileStream(file2.FullName, FileMode.Open);
+            FileStream fs1 = new(file1.FullName, FileMode.Open);
+            FileStream fs2 = new(file2.FullName, FileMode.Open);
 
             bool sameFile = false;
-            // Check the file sizes. If they are not the same, the files are not the same.
-            if (fs1.Length == fs2.Length)
+            try
             {
-                int file1byte;
-                int file2byte;
-                // Read and compare a byte from each file until either a
-                // non-matching set of bytes is found or until the end of
-                // file1 is reached.
-                do
+                // Check the file sizes. If they are not the same, the files are not the same.
+                if (fs1.Length == fs2.Length)
                 {
-                    // Read one byte from each file.
-                    file1byte = fs1.ReadByte();
-                    file2byte = fs2.ReadByte();
-                }
-                while (((file1byte == file2byte) && file1byte != -1 && file2byte != -1));
+                    int file1byte;
+                    int file2byte;
+                    // Read and compare a byte from each file until either a
+                    // non-matching set of bytes is found or until the end of
+                    // file1 is reached.
+                    do
+                    {
+                        // Read one byte from each file.
+                        file1byte = fs1.ReadByte();
+                        file2byte = fs2.ReadByte();
+                    }
+                    while (((file1byte == file2byte) && file1byte != -1 && file2byte != -1));
 
-                sameFile = (file1byte == file2byte);
+                    sameFile = (file1byte == file2byte);
+                }
             }
-            // Close the files.
-            fs1.Close();
-            fs2.Close();
-            fs1.Dispose();
-            fs2.Dispose();
+            catch (System.Exception ex)
+            {
+                Logger.Error(ex.Message);
+            }
+            finally
+            {
+                Logger.Debug("Finalizing");
+                // Close the files.
+                fs1.Close();
+                fs2.Close();
+                fs1.Dispose();
+                fs2.Dispose();
+            }
+
             return sameFile;
         }
 
