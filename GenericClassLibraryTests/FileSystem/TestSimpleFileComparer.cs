@@ -1,9 +1,5 @@
 ﻿using GenericClassLibrary.FileSystem.Compare;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace GenericClassLibraryTests.FileSystem
@@ -12,7 +8,7 @@ namespace GenericClassLibraryTests.FileSystem
     public class TestSimpleFileComparer
     {
 
-        private SimpleFileComparer SimpleFileComparer => new SimpleFileComparer();
+        private static SimpleFileComparer SimpleFileComparer => new (new Moq.Mock<ILogger>().Object);
 
         [Fact]
         public void IsSameFile_String1_String2_BothNull_Expect_True()

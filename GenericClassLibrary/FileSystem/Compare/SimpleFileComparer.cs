@@ -1,16 +1,22 @@
-﻿using GenericClassLibrary.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System.IO;
 
 namespace GenericClassLibrary.FileSystem.Compare
 {
     public class SimpleFileComparer : IFileComparer
     {
+        private readonly ILogger _logger;
+        public SimpleFileComparer(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public bool IsSameFile(FileInfo aFile, FileInfo aFile2)
         {
             return CheckIfIsSameFile(aFile, aFile2);
         }
 
-        private static bool CheckIfIsSameFile(FileInfo file1, FileInfo file2)
+        private bool CheckIfIsSameFile(FileInfo file1, FileInfo file2)
         {
             bool sameFile = false;
 
@@ -29,7 +35,7 @@ namespace GenericClassLibrary.FileSystem.Compare
                  // TimeSpan diffResult = aFile.LastWriteTimeUtc.Subtract(aFile2.LastWriteTimeUtc);
                  //var hashCode1 = aFile.GetHashCode();
                  //var hashCode2 = aFile2.GetHashCode();
-                Logger.Debug($"FileComparer: length 1: {file1.Length}, length 2: {file2.Length}, name 1: {file1.Name}, name 2: {file2.Name}");
+                _logger.LogDebug("FileComparer: length 1: {File1Length}, length 2: {File2Length}, name 1: {File1Name}, name 2: {File2Name}", file1.Length, file2.Length, file1.Name, file2.Name);
                 if (file1.Length == file2.Length && file1.Name == file2.Name)
                 {
                     //We keep it simple so only check on length and name.

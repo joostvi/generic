@@ -30,7 +30,7 @@ namespace GenericClassLibrary.Logging.net.core
         {
             if(dict == null || !dict.Any())
             {
-                return new LogMessage(message, new string[0]);
+                return new LogMessage(message, System.Array.Empty<string>());
             }
             object[] args = new string[dict.Count];
             string props = string.Empty;
@@ -47,23 +47,16 @@ namespace GenericClassLibrary.Logging.net.core
 
         public static EnumLogLevel ToMyLogLevel(this MsLogLevel logLevel)
         {
-            switch (logLevel)
+            return logLevel switch
             {
-                case MsLogLevel.Information:
-                    return EnumLogLevel.Info;
-                case MsLogLevel.Error:
-                    return EnumLogLevel.Error;
-                case MsLogLevel.Warning:
-                    return EnumLogLevel.Warning;
-                case MsLogLevel.Debug:
-                    return EnumLogLevel.Debug;
-                case MsLogLevel.Critical:
-                    return EnumLogLevel.Critical;
-                case MsLogLevel.Trace:
-                    return EnumLogLevel.Trace;
-                default:
-                    return EnumLogLevel.None;
-            }
+                MsLogLevel.Information => EnumLogLevel.Info,
+                MsLogLevel.Error => EnumLogLevel.Error,
+                MsLogLevel.Warning => EnumLogLevel.Warning,
+                MsLogLevel.Debug => EnumLogLevel.Debug,
+                MsLogLevel.Critical => EnumLogLevel.Critical,
+                MsLogLevel.Trace => EnumLogLevel.Trace,
+                _ => EnumLogLevel.None,
+            };
         }
     }
 }
