@@ -8,7 +8,7 @@ namespace GenericClassLibrary.Logging
     public partial class Logger
     {
         //TODO decide about locking private static object _lock = new object();
-        private static readonly List<ILogger> _loggers = new List<ILogger>();
+        private static readonly List<ILogger> _loggers = new();
 
         public static EnumLogLevel Level { get; set; }
 
@@ -85,7 +85,7 @@ namespace GenericClassLibrary.Logging
 
         public static void Error(string value, Exception ex)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new ();
             if (value != null)
             {
                 sb.Append("ERROR: ");

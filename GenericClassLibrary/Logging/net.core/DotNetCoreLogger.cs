@@ -37,7 +37,7 @@ namespace GenericClassLibrary.Logging.net.core
             return Logger.IsEnabled(logLevel.ToMyLogLevel());
         }
 
-        private void Log(MsLogLevel logLevel, string value)
+        private static void Log(MsLogLevel logLevel, string value)
         {
             switch (logLevel)
             {
