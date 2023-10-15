@@ -1,6 +1,6 @@
 ﻿using GenericClassLibrary.Logging;
 using Xunit;
-using Moq;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using GenericClassLibrary.Logging.net.core;
@@ -14,8 +14,8 @@ namespace GenericClassLibraryTests
         public void Logger_Error_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Error;
 
             //act
@@ -23,15 +23,15 @@ namespace GenericClassLibraryTests
             Logger.Error(logText);
 
             //verify
-            logger.Verify(a => a.Error(logText));
+            logger.Received(1).Error(logText);
         }
 
         [Fact]
         public void Logger_Info_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Info;
 
             //act
@@ -39,15 +39,15 @@ namespace GenericClassLibraryTests
             Logger.Info(logText);
 
             //verify
-            logger.Verify(a => a.Info(logText));
+            logger.Received().Info(logText);
         }
 
         [Fact]
         public void Logger_Debug_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Debug;
 
             //act
@@ -55,15 +55,15 @@ namespace GenericClassLibraryTests
             Logger.Debug(logText);
 
             //verify
-            logger.Verify(a => a.Debug(logText));
+            logger.Received().Debug(logText);
         }
 
         [Fact]
         public void Logger_Warning_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Warning;
 
             //act
@@ -71,17 +71,17 @@ namespace GenericClassLibraryTests
             Logger.Warning(logText);
 
             //verify
-            logger.Verify(a => a.Warning(logText));
+            logger.Received().Warning(logText);
         }
 
         [Fact]
         public void Logger_MultipleLoggers_Test()
         {
             //setup
-            Mock<ILogger> logger1 = new Mock<ILogger>();
-            Logger.AddLogger(logger1.Object);
-            Mock<ILogger> logger2 = new Mock<ILogger>();
-            Logger.AddLogger(logger2.Object);
+            ILogger logger1 = Substitute.For<ILogger>();
+            Logger.AddLogger(logger1);
+            ILogger logger2 = Substitute.For<ILogger>();
+            Logger.AddLogger(logger2);
             Logger.Level = EnumLogLevel.Debug;
 
             //act
@@ -89,16 +89,16 @@ namespace GenericClassLibraryTests
             Logger.Debug(logText);
 
             //verify
-            logger1.Verify(a => a.Debug(logText));
-            logger2.Verify(a => a.Debug(logText));
+            logger1.Received().Debug(logText);
+            logger2.Received().Debug(logText);
         }
 
         [Fact]
         public void Logger_LevelHigherThenRequested_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Info;
 
             //act
@@ -106,15 +106,15 @@ namespace GenericClassLibraryTests
             Logger.Debug(logText);
 
             //verify
-            logger.Verify(a => a.Debug(logText), Times.Never);
+            logger.Received(0).Debug(logText);
         }
 
         [Fact]
         public void Logger_LevelLowerThenRequested_Test()
         {
             //setup
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Logger.AddLogger(logger.Object);
+            ILogger logger = Substitute.For<ILogger>();
+            Logger.AddLogger(logger);
             Logger.Level = EnumLogLevel.Info;
 
             //act
@@ -122,13 +122,13 @@ namespace GenericClassLibraryTests
             Logger.Error(logText);
 
             //verify
-            logger.Verify(a => a.Error(logText));
+            logger.Received().Error(logText);
         }
 
         [Fact]
         public void LogLevelList_ContainsAllItems_Test()
         {
-            LogLevelList logLevels = new LogLevelList();
+            LogLevelList logLevels = new();
             Array valuesAsArray = Enum.GetValues(typeof(EnumLogLevel));
 
             Assert.Equal(valuesAsArray.Length, logLevels.Count);

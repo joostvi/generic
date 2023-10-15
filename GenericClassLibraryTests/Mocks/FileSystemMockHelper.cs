@@ -1,5 +1,5 @@
 ﻿using GenericClassLibrary.FileSystem;
-using Moq;
+using NSubstitute;
 
 namespace GenericClassLibraryTests.Mocks
 {
@@ -9,22 +9,22 @@ namespace GenericClassLibraryTests.Mocks
         public bool DirectoryExists { get; set; }
         public bool IsDirectory { get; set; }
 
-        public Mock<IFileSystem> IFileSystemMock { get; private set; }
-        public Mock<IFile> IFileMock { get; private set; }
-        public Mock<IDirectory> IDirectoryMock { get; private set; }
+        public IFileSystem IFileSystemMock { get; private set; }
+        public IFile IFileMock { get; private set; }
+        public IDirectory IDirectoryMock { get; private set; }
 
         public void Setup()
         {
-            IFileSystemMock = new Mock<IFileSystem>();
-            IFileMock = new Mock<IFile>();
-            IFileMock.Setup(a => a.Exists(It.IsAny<string>())).Returns(FileExists);
+            IFileSystemMock = Substitute.For<IFileSystem>();
+            IFileMock = Substitute.For<IFile>();
+            IFileMock.Exists(Arg.Any<string>()).Returns(FileExists);
 
-            IDirectoryMock = new Mock<IDirectory>();
-            IDirectoryMock.Setup(a => a.Exists(It.IsAny<string>())).Returns(DirectoryExists);
+            IDirectoryMock = Substitute.For<IDirectory>();
+            IDirectoryMock.Exists(Arg.Any<string>()).Returns(DirectoryExists);
 
-            IFileSystemMock.SetupGet(b => b.File).Returns(IFileMock.Object);
-            IFileSystemMock.SetupGet(b => b.Directory).Returns(IDirectoryMock.Object);
-            IFileSystemMock.Setup(c => c.IsDirectory(It.IsAny<string>())).Returns(IsDirectory);
+            IFileSystemMock.File.Returns(IFileMock);
+            IFileSystemMock.Directory.Returns(IDirectoryMock);
+            IFileSystemMock.IsDirectory(Arg.Any<string>()).Returns(IsDirectory);
         }
     }
 }
