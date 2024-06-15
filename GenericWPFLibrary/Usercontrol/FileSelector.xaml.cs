@@ -23,7 +23,7 @@ DependencyProperty.Register("File", typeof(string), typeof(FileSelector), new UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var dialog = new OpenFileDialog
             {
                 FileName = txtFile.Text
@@ -46,24 +46,31 @@ DependencyProperty.Register("File", typeof(string), typeof(FileSelector), new UI
             File = txtFile.Text;
         }
 
-        public string Path
+        public SelectedFileInfo FileInfo
         {
             get
             {
                 string fullPath = (string)GetValue(TextProperty);
-                var x = new System.IO.FileInfo(fullPath);
-                return x.DirectoryName;
+                return new SelectedFileInfo(fullPath);
             }
+        }
+    }
+
+    public readonly struct SelectedFileInfo
+    {
+        public string FileLocation { get; }
+        public string FullFileName { get; }
+        public string Extension { get; }
+        public string File { get; }
+
+        public SelectedFileInfo(string file)
+        {
+            File = file;
+            var fileInfo = new System.IO.FileInfo(file);
+            FileLocation = fileInfo.DirectoryName;
+            FullFileName = fileInfo.Name;
+            Extension = fileInfo.Extension;
         }
 
-        public string FileName
-        {
-            get
-            {
-                string fullPath = (string)GetValue(TextProperty);
-                var x = new System.IO.FileInfo(fullPath);
-                return x.Name;
-            }
-        }
     }
 }
