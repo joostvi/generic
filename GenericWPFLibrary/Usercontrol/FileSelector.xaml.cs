@@ -45,5 +45,25 @@ DependencyProperty.Register("File", typeof(string), typeof(FileSelector), new UI
         {
             File = txtFile.Text;
         }
+
+        public string Path
+        {
+            get
+            {
+                string fullPath = (string)GetValue(TextProperty);
+                var x = new System.IO.FileInfo(fullPath);
+                return x.DirectoryName;
+            }
+        }
+
+        public string FileName
+        {
+            get
+            {
+                string fullPath = (string)GetValue(TextProperty);
+                var x = new System.IO.FileInfo(fullPath);
+                return x.Name;
+            }
+        }
     }
 }
