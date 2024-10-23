@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Runtime.Versioning;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace GenericWPFLibrary.Usercontrol

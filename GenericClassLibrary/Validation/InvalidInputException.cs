@@ -17,9 +17,5 @@ namespace GenericClassLibrary.Validation
         public InvalidInputException(string message, Exception innerException) : base(message, innerException)
         {
         }
-
-        protected InvalidInputException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }
