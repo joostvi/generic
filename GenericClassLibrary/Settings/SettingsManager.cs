@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 using System;
 using System.IO;
 
@@ -21,12 +21,12 @@ namespace GenericClassLibrary.Settings
 
         public T LoadSettings() =>
             File.Exists(_filePath) ?
-            JsonConvert.DeserializeObject<T>(File.ReadAllText(_filePath)) :
+            JsonSerializer.Deserialize<T>(File.ReadAllText(_filePath)) :
             null;
 
         public void SaveSettings(T settings)
         {
-            string json = JsonConvert.SerializeObject(settings);
+            string json = JsonSerializer.Serialize(settings);
             File.WriteAllText(_filePath, json);
         }
     }
