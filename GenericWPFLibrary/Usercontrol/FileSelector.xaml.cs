@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Forms;
 
