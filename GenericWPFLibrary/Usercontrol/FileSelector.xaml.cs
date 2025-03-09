@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace GenericWPFLibrary.Usercontrol
@@ -23,15 +24,31 @@ DependencyProperty.Register("File", typeof(string), typeof(FileSelector), new UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (!WindowsVersionChecker.RunningOnWindows() ||  WindowsVersionChecker.IsWindowsVersionAfter61())
+            {
 
-            var dialog = new OpenFileDialog
+
+                var dialog = new OpenFileDialog
+                {
+                    FileName = txtFile.Text
+                };
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    File = dialog.FileName;
+                }
+            }
+            else
             {
-                FileName = txtFile.Text
-            };
-            var result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                File = dialog.FileName;
+                var dialog = new Microsoft.Win32.OpenFileDialog
+                {
+                    FileName = txtFile.Text
+                };
+                var result = dialog.ShowDialog();
+                if (result == true)
+                {
+                    File = dialog.FileName;
+                }
             }
         }
 
@@ -72,5 +89,21 @@ DependencyProperty.Register("File", typeof(string), typeof(FileSelector), new UI
             Extension = fileInfo.Extension;
         }
 
+    }
+
+    public static class WindowsVersionChecker
+    {
+        public static bool IsWindowsVersionAfter61()
+        {
+            Version currentVersion = Environment.OSVersion.Version;
+            Version targetVersion = new Version(6, 1);
+
+            return currentVersion > targetVersion;
+        }
+        public static bool RunningOnWindows()
+        {
+            var platform = Environment.OSVersion.Platform;
+            return platform == PlatformID.Win32NT || platform == PlatformID.Win32Windows;
+        }
     }
 }
