@@ -1,8 +1,10 @@
 ﻿using GenericClassLibrary.Logging;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace GenericWinformsLibrary.Logging
 {
+    [SupportedOSPlatform("windows")]
     public class WinformsControlAttachedLogger : ILogger
     {
         readonly Control _control;

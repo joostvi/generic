@@ -15,7 +15,7 @@
         /// <param name="mock">The mocked object</param>
         /// <param name="expected">The list names of expected method calls</param>
         /// <exception cref="XUnit.Sdk.EqualException">Thrown when the objects are not equal</exception>
-        public static void VerifyNoOtherCalls<T>(this T mock, List<string> expected) where T : class
+        public static void VerifyNoOtherCalls<T>(this T mock, HashSet<string> expected) where T : class
         {
             var receivedCalls = mock.ReceivedCalls();
             var methods = receivedCalls.Select(a => a.GetMethodInfo().Name).ToHashSet();
